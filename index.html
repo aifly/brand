@@ -3,7 +3,10 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-    <title></title>
+    <title>告诉我你最喜爱的中国品牌</title>
+    <script>
+        document.addEventListener('touchmove',function(e){e.preventDefult()});
+    </script>
     <link href="./css/index.css" rel="stylesheet" />
     <style id="style">
     
@@ -31,18 +34,20 @@
     <section class='zmiti-info'>
         谢谢参与(●'◡'●)
     </section>
-    <section>
+    <section class="zmiti-container">
         <ul id="main">
             <li class="liBg1"><span></span></li>
             <li class="liBg2"><span></span></li>
             <li class="liBg3">
-                <div class="zmiti-btn">按钮</div>
+                <textarea placeholder="请输入内容" class="zmiti-input"></textarea>
+                <div class="zmiti-btn">确定</div>
                 <span></span>
             </li>
         </ul>
     </section>
     <footer>新华社发布客户端出品</footer>
     <script src="./js/zepto.min.js"></script>
+    <script src='http://res.wx.qq.com/open/js/jweixin-1.2.0.js'></script>
     <script src="./js/index.js"></script>
 </body>
 </html>

@@ -21,10 +21,7 @@
     //var plain = $("#plain");
     //var iTop = plain.height();
 
-     setCss3(main[0], {
-        transform: "translateY(" + (-2 * iHeight) + "px)",
-        transition: ".5s"
-    });
+     
 
      $('.zmiti-btn').on('touchstart',function(){
         $(this).addClass('active');
@@ -32,6 +29,7 @@
         $(this).removeClass('active');
         $('.zmiti-info').addClass('active');
         setTimeout(function(){
+            $('textarea').val('');
             $('.zmiti-info').removeClass('active');
         },2000)
      });
@@ -47,9 +45,10 @@
             var startX = e.pageX;
             var startY = e.pageY;
             var startTime = Date.now();
+
             $(document).on("touchmove",
-            function () {
-                return false
+            function (e) {
+                e.preventDefault();
             });
 
             $(document).on("touchend",
@@ -121,7 +120,7 @@
 
                // plain.css({ top: -iTop });
             }
-            return false
+            //return false
         });
 
     }
@@ -169,5 +168,101 @@
             }
             return obj;
         }
+    }
+    
+    wxConfig();
+    function wxConfig(){
+            var title = '告诉我你最喜爱的中国品牌',
+                desc = '国务院批复从今年起将5月10日设立为“中国品牌日”',
+                img = 'http://h5.zmiti.com/public/brand/images/300.jpg',
+                appId = 'wxfacf4a639d9e3bcc';
+
+
+            var durl = window.location.href.split('#')[0]; //window.location;
+            var code_durl = encodeURIComponent(durl);
+            $.ajax({
+                type:'get',
+                url: "http://api.zmiti.com/weixin/jssdk.php?type=signature&durl="+code_durl,
+                dataType:'jsonp',
+                jsonp: "callback",
+                jsonpCallback: "jsonFlickrFeed",
+                success(data){
+                    wx.config({
+                                debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                                appId:appId, // 必填，公众号的唯一标识
+                                timestamp:'1488558145' , // 必填，生成签名的时间戳
+                                nonceStr: 'Wm3WZYTPz0wzccnW', // 必填，生成签名的随机串
+                                signature: data.signature,// 必填，签名，见附录1
+                                jsApiList: [ 'checkJsApi',
+                                            'onMenuShareTimeline',
+                                            'onMenuShareAppMessage',
+                                            'onMenuShareQQ',
+                                            'onMenuShareWeibo',
+                                            'hideMenuItems',
+                                            'showMenuItems',
+                                            'hideAllNonBaseMenuItem',
+                                            'showAllNonBaseMenuItem',
+                                            'translateVoice',
+                                            'startRecord',
+                                            'stopRecord',
+                                            'onRecordEnd',
+                                            'playVoice',
+                                            'pauseVoice',
+                                            'stopVoice',
+                                            'uploadVoice',
+                                            'downloadVoice',
+                                            'chooseImage',
+                                            'previewImage',
+                                            'uploadImage',
+                                            'downloadImage',
+                                            'getNetworkType',
+                                            'openLocation',
+                                            'getLocation',
+                                            'hideOptionMenu',
+                                            'showOptionMenu',
+                                            'closeWindow',
+                                            'scanQRCode',
+                                            'chooseWXPay',
+                                            'openProductSpecificView',
+                                    ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                            });
+
+                    wx.ready(()=>{
+                                 //朋友圈
+                        wx.onMenuShareTimeline({
+                            title: title, // 分享标题
+                            link: durl, // 分享链接
+                            imgUrl: img, // 分享图标
+                            desc: desc,
+                            success: function () { },
+                            cancel: function () { }
+                        });
+                        //朋友
+                        wx.onMenuShareAppMessage({
+                            title: title, // 分享标题
+                            link: durl, // 分享链接
+                            imgUrl: img, // 分享图标
+                            type: "link",
+                            dataUrl: "",
+                            desc: desc,
+                            success: function () {
+
+                            },
+                            cancel: function () { 
+                            }
+                        });
+                        //qq
+                        wx.onMenuShareQQ({
+                            title: title, // 分享标题
+                            link: durl, // 分享链接
+                            imgUrl: img, // 分享图标
+                            desc: desc,
+                            success: function () { },
+                            cancel: function () { }
+                        });
+                    });
+                }
+            });
+         
     }
 })();

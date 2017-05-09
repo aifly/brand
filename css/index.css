@@ -34,9 +34,9 @@ img{width:100%;}
   	position: fixed;
   	transform:translateY(-5rem);
   	-webkit-transform:translateY(-5rem);
-  	width: 2rem;
+  	width: 3rem;
   	left: 50%;
-  	margin-left: -1rem;
+  	margin-left: -1.5rem;
   	top: 1rem;
   	text-align: center;
   	z-index: 10;
@@ -48,11 +48,32 @@ img{width:100%;}
   	-transition:.2s  ; 
   }
 
+  .zmiti-container{
+     position: absolute;
+     left: 0;
+     top: 0;
+     width: 100%;
+     height: 100%;
+     overflow: hidden;
+  }
+
   .zmiti-info.active{
   	transform:translateY(0);
   	-webkit-transform:translateY(0);
   }
-
+  .zmiti-input{
+    resize:none;
+    width: 8rem;
+    position: absolute;
+    top: 3rem;
+    left: 50%;
+    height: 4rem;
+    padding:10px;
+    border-radius: 10px;
+    border:1px solid #ccc;
+    box-sizing: border-box;
+    margin-left: -4rem;
+  }
 
   .zmiti-btn{
   	position: absolute;
